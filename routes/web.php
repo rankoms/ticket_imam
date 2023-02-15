@@ -20,6 +20,7 @@ Route::get('/checkin', [RedeemVoucherController::class, 'checkin'])->name('check
 Route::get('/checkout', [RedeemVoucherController::class, 'checkout'])->name('checkout');
 
 Route::post('/barcode_checkin', [HomeController::class, 'barcode_checkin'])->name('barcode_checkin');
+Route::post('/barcode_checkout', [HomeController::class, 'barcode_checkout'])->name('barcode_checkout');
 
 Auth::routes();
 

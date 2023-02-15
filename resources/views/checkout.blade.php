@@ -62,10 +62,73 @@
 		body {
 			width: 100%;
 			height: 120vh;
-			background: url('images/bg.png');
+			background: url('../../images/bg.png');
 			center top no-repeat;
 			background-size: cover;
 			position: relative;
+		}
+
+		p {
+			margin: 0;
+			padding: 0;
+		}
+
+		.bungkus-total {
+			background-color: white;
+			width: 149px;
+			text-align: center;
+			padding: 5px;
+			border-radius: 15px;
+		}
+
+		.form-floating {
+
+			position: relative;
+		}
+
+		.form-floating>.form-control {
+			padding: 1rem 0.735rem;
+		}
+
+		.form-floating>.form-control,
+		.form-floating>.form-select {
+			height: calc(3.5rem + 2px);
+			line-height: 1.25;
+		}
+
+		.form-control {
+			display: block;
+			width: 100%;
+			padding: 0.469rem 0.735rem;
+			font-size: 0.9375rem;
+			font-weight: 400;
+			line-height: 1.4;
+			color: #677788;
+			background-color: #fff;
+			background-clip: padding-box;
+			border: 1px solid #d4d8dd;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			border-radius: 0.25rem;
+			transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+		}
+
+		.form-floating>label {
+			width: auto !important;
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			padding: 1rem 0.735rem;
+			pointer-events: none;
+			border: 1px solid transparent;
+			transform-origin: 0 0;
+			transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+		}
+
+		label {
+			display: inline-block;
 		}
 	</style>
 </head>
@@ -107,7 +170,7 @@
 	}, 500);
 	$('#form-voucher').on('submit', function(e) {
 		e.preventDefault();
-		var data = getJSON("{{ route('barcode') }}", {
+		var data = getJSON("{{ route('barcode_checkout') }}", {
 			_token: '{{ csrf_token() }}',
 			voucher: $('#voucher').val()
 		});
@@ -132,77 +195,74 @@
 				`,
 				color: '#000',
 				showCloseButton: true,
+				timer: 5000,
 			})
 
 		} else {
-			if (data.data.status == 1) {
-
-				Swal.fire({
-					title: data.data.name,
-					icon: 'error',
-					html: `<p>${data.data.email}</p>
-								<p>${data.data.kategory}</p>
-								<p>E-Ticket Sudah di Redeem Pada ${data.data.redeem_date}</p>
-								<button disabled class="btn btn-danger">E-Ticket Sudah Di Redeem</button>
-						`,
-					showCancelButton: false,
-					showConfirmButton: false,
-					cancelButtonColor: '#d33',
-					cancelButtonText: 'Ticket Sudah Di gunakan',
-					showCloseButton: true,
-					allowOutsideClick: false,
-					background: 'rgba(255,255,255,0.4)',
-					backdrop: `
-						rgba(0,0,123,0.4)
-						url("/images/bg3.png")
-					`,
-					color: '#000'
-				}).then((result) => {
-					$('#voucher').val('');
-					$('#voucher').focus();
-					/* Read more about isConfirmed, isDenied below */
-					// window.location = "{{ route('redeem_voucher.index') }}/" + $('#voucher').val()
-				});
-			} else {
-				id = data.data.id;
-				Swal.fire({
-					title: data.data.name,
-					showCloseButton: true,
-					icon: 'success',
-					background: 'rgba(255,255,255,0.4)',
-					backdrop: `
+			Swal.fire({
+				title: data.meta.message,
+				showCloseButton: true,
+				showConfirmButton: false,
+				icon: data.meta.message == 'Success' ? 'success' : 'warning',
+				timer: 5000,
+				background: 'rgba(255,255,255,0.4)',
+				backdrop: `
 						rgba(0,0,123,0.4)
 						url("/images/bg2.png")
 					`,
-					color: '#000',
-					html: `<p>${data.data.email}</p>
-								<p>${data.data.category_name}</p>
+				color: '#000',
+				html: `
+					<div class="row mt-4 m-0 p-0">
+							<div class="col-6">
+								<div class="form-floating">
+									<input type="text" class="form-control" id="nama_lengkap" placeholder="John Doe"
+										aria-describedby="nama_lengkapHelp" value="${data.data.name}" disabled>
+									<label for="nama_lengkap">Nama Lengkap</label>
+								</div>
+								<div class="form-floating mt-4">
+									<input type="text" class="form-control" id="phone" placeholder="John Doe"
+										aria-describedby="phoneHelp" value="${data.data.phone}" disabled>
+									<label for="phone">Phone</label>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-floating">
+									<input type="text" class="form-control" id="email" placeholder="John Doe"
+										aria-describedby="emailHelp" value="${data.data.email}" disabled>
+									<label for="email">Email</label>
+								</div>
+								<div class="form-floating mt-4">
+									<input type="text" class="form-control" id="category" placeholder="John Doe"
+										aria-describedby="categoryHelp" value="${data.data.category_name}" disabled>
+									<label for="category">Area Kursi</label>
+								</div>
+							</div>
+						</div>
 						`,
-					confirmButtonText: 'Redeem E-Ticket',
-				}).then((result) => {
-					if (result.isConfirmed) {
-						var data = getJSON("{{ route('redeem_voucher.redeem_voucher_update') }}", {
-							_token: '{{ csrf_token() }}',
-							id: id
-						});
+				confirmButtonText: 'Redeem E-Ticket',
+			}).then((result) => {
+				if (result.isConfirmed) {
+					var data = getJSON("{{ route('barcode_checkout') }}", {
+						_token: '{{ csrf_token() }}',
+						id: id
+					});
 
-						Swal.fire({
-							timer: 2000,
-							icon: 'success',
-							title: data.meta.message,
-							showConfirmButton: false,
-							background: 'rgba(255,255,255,0.4)',
-							backdrop: `
+					Swal.fire({
+						timer: 2000,
+						icon: 'success',
+						title: data.meta.message,
+						showConfirmButton: false,
+						background: 'rgba(255,255,255,0.4)',
+						backdrop: `
 							rgba(0,0,123,0.4)
 							url("/images/bg2.png")
 						`,
-							color: '#000'
-						})
-					}
-					$('#voucher').val('');
-					$('#voucher').focus();
-				});
-			}
+						color: '#000'
+					})
+				}
+				$('#voucher').val('');
+				$('#voucher').focus();
+			});
 		}
 		$('#voucher').focus();
 		$('#voucher').val('');

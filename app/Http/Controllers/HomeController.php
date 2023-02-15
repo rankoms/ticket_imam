@@ -47,4 +47,19 @@ class HomeController extends Controller
             }
         }
     }
+    public function barcode_checkout(Request $request)
+    {
+
+        $voucher = $request->voucher;
+        // status 1001 blm checki ln , 1019 udah checkin . 1020 checkout
+        $barcode = Barcode::where('barcode', $voucher)->first();
+
+        if (!$barcode) {
+            return ResponseFormatter::error(null, 'Barcode tidak ada');
+        } else {
+            $barcode->barcode_scan_status = 1001;
+            $barcode->save();
+            return ResponseFormatter::success($barcode, 'Success');
+        }
+    }
 }
