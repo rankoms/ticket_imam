@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ResponseFormatter;
 use App\Models\Barcode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -40,6 +41,8 @@ class HomeController extends Controller
         } else {
             if ($barcode->barcode_scan_status == 1001) {
                 $barcode->barcode_scan_status = 1019;
+                $barcode->user_id_checkin = Auth::user()->name;
+                $barcode->barcode_scan_date = date('Y-m-d H:i:s');
                 $barcode->save();
                 return ResponseFormatter::success($barcode, 'Success');
             } else {
@@ -58,6 +61,8 @@ class HomeController extends Controller
             return ResponseFormatter::error(null, 'Barcode tidak ada');
         } else {
             $barcode->barcode_scan_status = 1020;
+            $barcode->user_id_checkout = Auth::user()->name;
+            $barcode->barcode_scan_checkout = date('Y-m-d H:i:s');
             $barcode->save();
             return ResponseFormatter::success($barcode, 'Success');
         }
