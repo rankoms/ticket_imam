@@ -43,7 +43,7 @@ class HomeController extends Controller
                 $barcode->save();
                 return ResponseFormatter::success($barcode, 'Success');
             } else {
-                return ResponseFormatter::success($barcode, 'ID already checked in');
+                return ResponseFormatter::success($barcode, 'Ticket has been scanned');
             }
         }
     }

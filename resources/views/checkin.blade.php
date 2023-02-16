@@ -61,7 +61,7 @@
 
 		body {
 			width: 100%;
-			height: 120vh;
+			height: 100%;
 			background: url('../../images/bg.png');
 			center top no-repeat;
 			background-size: cover;
@@ -130,6 +130,7 @@
 		label {
 			display: inline-block;
 		}
+		
 	</style>
 </head>
 
@@ -200,16 +201,17 @@
 				showCloseButton: false,
 				showConfirmButton: false,
 				icon: data.meta.message == 'Success' ? 'success' : 'warning',
-				timer: 3000,
-				background: 'rgba(255,255,255,0)',
+				// timer: 3000,
+				background: 'rgba(255,255,255,2)',
 				backdrop: `
 						rgba(0,0,123,0.4)
 						url("/images/bg2.png")
-					`,
+						`,
+				
 				color: '#000',
 				html: `
 					<div class="row mt-4 m-0 p-0">
-							<div class="col-6">
+							<div class="col-12">
 								<div class="form-floating">
 									<input type="text" class="form-control" id="nama_lengkap" placeholder="John Doe"
 										aria-describedby="nama_lengkapHelp" value="${data.data.name}" disabled>
@@ -221,7 +223,7 @@
 									<label for="phone">Phone</label>
 								</div>
 							</div>
-							<div class="col-6">
+							<div class="col-12">
 								<div class="form-floating">
 									<input type="text" class="form-control" id="email" placeholder="John Doe"
 										aria-describedby="emailHelp" value="${data.data.email}" disabled>
