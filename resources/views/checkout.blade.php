@@ -59,6 +59,11 @@
 			background-color: transparent !important;
 		}
 
+		.swal2-backdrop-show {
+			background-size: cover !important;
+		}
+
+
 		body {
 			width: 100%;
 			height: 120vh;

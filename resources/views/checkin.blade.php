@@ -59,6 +59,10 @@
 			background-color: transparent !important;
 		}
 
+		.swal2-backdrop-show {
+			background-size: cover !important;
+		}
+
 		body {
 			width: 100%;
 			height: 100%;
@@ -130,7 +134,6 @@
 		label {
 			display: inline-block;
 		}
-		
 	</style>
 </head>
 
@@ -145,7 +148,7 @@
 						<div class="row">
 
 						</div>
-					
+
 						<input class="form-control mb-3" id="voucher" name="voucher" size="16" type="text" placeholder=""
 							autofocus autocomplete="off">
 						<button class="btn btn-info" style="width:100%" type="submit" autofocus="false">Search</button>
@@ -207,7 +210,7 @@
 						rgba(0,0,123,0.4)
 						url("/images/bg2.png")
 						`,
-				
+
 				color: '#000',
 				html: `
 					<div class="row mt-4 m-0 p-0">
