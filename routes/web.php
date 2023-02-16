@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RedeemVoucherController;
+use App\Http\Controllers\TicketController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +23,8 @@ Route::get('/checkout', [RedeemVoucherController::class, 'checkout'])->name('che
 
 Route::post('/barcode_checkin', [HomeController::class, 'barcode_checkin'])->name('barcode_checkin');
 Route::post('/barcode_checkout', [HomeController::class, 'barcode_checkout'])->name('barcode_checkout');
+
+Route::get('/dashboard_ticket', [TicketController::class, 'dashboard_ticket'])->name('dashboard_ticket');
 
 Auth::routes();
 
