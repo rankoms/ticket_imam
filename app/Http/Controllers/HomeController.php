@@ -37,7 +37,7 @@ class HomeController extends Controller
         $barcode = Barcode::where('barcode', $voucher)->first();
 
         if (!$barcode) {
-            return ResponseFormatter::error(null, 'Barcode tidak ada');
+            return ResponseFormatter::error(null, '');
         } else {
             if ($barcode->barcode_scan_status == 1001) {
                 $barcode->barcode_scan_status = 1019;
@@ -46,7 +46,7 @@ class HomeController extends Controller
                 $barcode->save();
                 return ResponseFormatter::success($barcode, 'Success');
             } else {
-                return ResponseFormatter::success($barcode, 'Already');
+                return ResponseFormatter::success($barcode, 'Ticket has been scanned');
             }
         }
     }
@@ -58,7 +58,7 @@ class HomeController extends Controller
         $barcode = Barcode::where('barcode', $voucher)->first();
 
         if (!$barcode) {
-            return ResponseFormatter::error(null, 'Barcode tidak ada');
+            return ResponseFormatter::error(null, '');
         } else {
             $barcode->barcode_scan_status = 1020;
             $barcode->user_id_checkout = Auth::user()->name;
