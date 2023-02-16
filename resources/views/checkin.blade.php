@@ -211,27 +211,26 @@
 		});
 
 		if (data.meta.code != 200) {
-			Swal.fire(
-				'Gagal',
-				data.meta.message,
-				'error'
-			)
-			Swal.fire({
-				title: 'ID Not Found',
-				text: data.meta.message,
-				icon: 'error',
-				showConfirmButton: false,
-				showCloseButton: true,
 
-				background: 'rgba(255,255,255,0)',
-				backdrop: `
-					rgba(0,0,123,0.4)
-					url("/images/bgerror.png")
-				`,
-				color: '#000',
+			Swal.fire({
+				title: "<h1 style='color:red'>" + data.meta.message + "</h1>",
 				showCloseButton: false,
-				timer: 2000,
-			})
+				showConfirmButton: false,
+				icon: 'error',
+				timer: 3000,
+				background: 'rgba(255,255,255,2)',
+				backdrop: `
+						rgba(0,0,123,0.4)
+						url("/images/bg2.png")
+						`,
+
+				color: '#000',
+				html: ` <span>Harap cek kembali tiket anda</span>
+						`,
+			}).then((result) => {
+				$('#voucher').val('');
+				$('#voucher').focus();
+			});
 
 		} else {
 			Swal.fire({
@@ -277,25 +276,6 @@
 						`,
 				confirmButtonText: 'Redeem E-Ticket',
 			}).then((result) => {
-				if (result.isConfirmed) {
-					var data = getJSON("{{ route('barcode_checkin') }}", {
-						_token: '{{ csrf_token() }}',
-						id: id
-					});
-
-					Swal.fire({
-						timer: 2000,
-						icon: 'success',
-						title: data.meta.message,
-						showConfirmButton: false,
-						background: 'rgba(255,255,255,0.4)',
-						backdrop: `
-							rgba(0,0,123,0.4)
-							url("/images/bg2.png")
-						`,
-						color: '#000'
-					})
-				}
 				$('#voucher').val('');
 				$('#voucher').focus();
 			});

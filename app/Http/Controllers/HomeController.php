@@ -37,7 +37,7 @@ class HomeController extends Controller
         $barcode = Barcode::where('barcode', $voucher)->first();
 
         if (!$barcode) {
-            return ResponseFormatter::error(null, '');
+            return ResponseFormatter::error(null, 'Ticket failed to scan');
         } else {
             if ($barcode->barcode_scan_status == 1001) {
                 $barcode->barcode_scan_status = 1019;

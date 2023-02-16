@@ -216,27 +216,25 @@
 		});
 
 		if (data.meta.code != 200) {
-			Swal.fire(
-				'Gagal',
-				data.meta.message,
-				'error'
-			)
 			Swal.fire({
-				title: 'E-Ticket Tidak Terdaftar',
-				text: data.meta.message,
-				icon: 'error',
+				title: "<h1 style='color:red'>" + data.meta.message + "</h1>",
+				showCloseButton: false,
 				showConfirmButton: false,
-				showCloseButton: true,
-
-				background: 'rgba(255,255,255,0.4)',
+				icon: 'error',
+				timer: 3000,
+				background: 'rgba(255,255,255,2)',
 				backdrop: `
-					rgba(0,0,123,0.4)
-					url("/images/bg3.png")
-				`,
+						rgba(0,0,123,0.4)
+						url("/images/bg2.png")
+						`,
+
 				color: '#000',
-				showCloseButton: true,
-				timer: 5000,
-			})
+				html: ` <span>Harap cek kembali tiket anda</span>
+						`,
+			}).then((result) => {
+				$('#voucher').val('');
+				$('#voucher').focus();
+			});
 
 		} else {
 			Swal.fire({
