@@ -25,7 +25,7 @@ class TicketController extends Controller
         foreach ($ticket as $key => $value) :
             if ($value->barcode_scan_status == 1001) :
                 $jumlah_pending++;
-                isset($kategory_aset[$value->category_name]['checkin']) ? $kategory_aset[$value->category_name]['checkin']++ : $kategory_aset[$value->category_name]['checkin'] = 1;
+                isset($kategory_aset[$value->category_name]['pending']) ? $kategory_aset[$value->category_name]['pending']++ : $kategory_aset[$value->category_name]['pending'] = 1;
             endif;
             if ($value->barcode_scan_status == 1019) :
                 $jumlah_checkin++;

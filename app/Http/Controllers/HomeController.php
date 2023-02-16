@@ -57,7 +57,7 @@ class HomeController extends Controller
         if (!$barcode) {
             return ResponseFormatter::error(null, 'Barcode tidak ada');
         } else {
-            $barcode->barcode_scan_status = 1001;
+            $barcode->barcode_scan_status = 1020;
             $barcode->save();
             return ResponseFormatter::success($barcode, 'Success');
         }
