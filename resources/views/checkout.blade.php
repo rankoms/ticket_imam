@@ -43,6 +43,42 @@
 	<link rel="stylesheet" href="{{ url('css/prism.css') }}">
 	<link href="{{ url('css/examples.css') }}" rel="stylesheet">
 	<style>
+		@font-face {
+			font-family: 'Roboto-Light';
+			src: url('{{ url('fonts/Roboto-Light.ttf') }}');
+			font-weight: 300;
+		}
+
+		@font-face {
+			font-family: 'Roboto-Regular';
+			src: url('{{ url('fonts/Roboto-Regular.ttf') }}');
+			font-weight: 400;
+		}
+
+		@font-face {
+			font-family: 'Roboto-Medium';
+			src: url('{{ url('fonts/Roboto-Medium.ttf') }}');
+			font-weight: 600;
+		}
+
+		@font-face {
+			font-family: 'Roboto-Bold';
+			src: url('{{ url('fonts/Roboto-Bold.ttf') }}');
+			font-weight: 700;
+		}
+
+		@font-face {
+			font-family: 'Roboto-Black';
+			src: url('{{ url('fonts/Roboto-Bold.ttf') }}');
+			font-weight: 900;
+		}
+	</style>
+
+	<style>
+		* {
+			font-family: 'Roboto-Regular' !important;
+		}
+
 		.swal2-popup {
 			font-size: 1.4rem !important;
 			font-family: cursive !important;
@@ -63,10 +99,9 @@
 			background-size: cover !important;
 		}
 
-
 		body {
 			width: 100%;
-			height: 120vh;
+			height: 100%;
 			background: url('../../images/bg.png');
 			center top no-repeat;
 			background-size: cover;
@@ -120,10 +155,10 @@
 		}
 
 		.form-floating>label {
-			width: auto !important;
+			width: 717px !important;
 			position: absolute;
 			top: 0;
-			left: 0;
+			/* left: 272px !important; */
 			height: 100%;
 			padding: 1rem 0.735rem;
 			pointer-events: none;
@@ -217,28 +252,28 @@
 					`,
 				color: '#000',
 				html: `
-					<div class="row mt-4 m-0 p-0">
-							<div class="col-6">
+						<div class="row mt-4 m-0 p-0">
+							<div class="col-12">
 								<div class="form-floating">
-									<input type="text" class="form-control" id="nama_lengkap" placeholder="John Doe"
-										aria-describedby="nama_lengkapHelp" value="${data.data.name}" disabled>
-									<label for="nama_lengkap">Nama Lengkap</label>
+									<input type="text" class="form-control text-center" id="nama_lengkap" placeholder="John Doe"
+										aria-describedby="nama_lengkapHelp" value="${data.data.name}" readonly>
+									<label for="nama_lengkap">Name</label>
 								</div>
 								<div class="form-floating mt-4">
-									<input type="text" class="form-control" id="phone" placeholder="John Doe"
-										aria-describedby="phoneHelp" value="${data.data.phone}" disabled>
+									<input type="text" class="form-control text-center" id="phone" placeholder="John Doe"
+										aria-describedby="phoneHelp" value="${data.data.phone}" readonly>
 									<label for="phone">Phone</label>
 								</div>
 							</div>
-							<div class="col-6">
-								<div class="form-floating">
-									<input type="text" class="form-control" id="email" placeholder="John Doe"
-										aria-describedby="emailHelp" value="${data.data.email}" disabled>
+							<div class="col-12">
+								<div class="form-floating mt-4">
+									<input type="text" class="form-control text-center" id="email" placeholder="John Doe"
+										aria-describedby="emailHelp" value="${data.data.email}" readonly>
 									<label for="email">Email</label>
 								</div>
 								<div class="form-floating mt-4">
-									<input type="text" class="form-control" id="category" placeholder="John Doe"
-										aria-describedby="categoryHelp" value="${data.data.category_name}" disabled>
+									<input type="text" class="form-control text-center" id="category" placeholder="John Doe"
+										aria-describedby="categoryHelp" value="${data.data.category_name}" readonly>
 									<label for="category">Area Kursi</label>
 								</div>
 							</div>

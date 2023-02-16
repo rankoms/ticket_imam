@@ -44,7 +44,7 @@ class HomeController extends Controller
                 $barcode->user_id_checkin = Auth::user()->name;
                 $barcode->barcode_scan_date = date('Y-m-d H:i:s');
                 $barcode->save();
-                return ResponseFormatter::success($barcode, 'Success');
+                return ResponseFormatter::success($barcode, 'Ticket successfully scanned');
             } else {
                 return ResponseFormatter::success($barcode, 'Ticket has been scanned');
             }
