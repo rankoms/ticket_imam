@@ -37,16 +37,17 @@ class HomeController extends Controller
         $barcode = Barcode::where('barcode', $voucher)->first();
 
         if (!$barcode) {
-            return ResponseFormatter::error(null, 'Ticket failed to scan');
+            return ResponseFormatter::error(null, 'Oops! We are having trouble scanning your ticket. </br>Please check your ticket and try
+            again, or let our staff help you');
         } else {
             if ($barcode->barcode_scan_status == 1001) {
                 $barcode->barcode_scan_status = 1019;
                 $barcode->user_id_checkin = Auth::user()->name;
                 $barcode->barcode_scan_date = date('Y-m-d H:i:s');
                 $barcode->save();
-                return ResponseFormatter::success($barcode, 'Ticket successfully scanned');
+                return ResponseFormatter::success($barcode, 'Ticket is successfully scanned!');
             } else {
-                return ResponseFormatter::success($barcode, 'Ticket has been scanned');
+                return ResponseFormatter::success($barcode, 'Ticket is successfully scanned!');
             }
         }
     }

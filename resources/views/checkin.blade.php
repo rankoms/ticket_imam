@@ -16,7 +16,7 @@
 	<meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
 	<meta name="author" content="Łukasz Holeczek">
 	<meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-	<title>Redeem Ticket</title>
+	<title>Checkin</title>
 	<link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/apple-icon-60x60.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="assets/favicon/apple-icon-72x72.png">
@@ -225,7 +225,7 @@
 						`,
 
 				color: '#000',
-				html: ` <span>Harap cek kembali tiket anda</span>
+				html: ` <span></span>
 						`,
 			}).then((result) => {
 				$('#voucher').val('');
@@ -238,7 +238,7 @@
 				showCloseButton: false,
 				showConfirmButton: false,
 				icon: data.meta.message == 'Ticket successfully scanned' ? 'success' : 'warning',
-				// timer: 3000,
+				timer: 3000,
 				background: 'rgba(255,255,255,2)',
 				backdrop: `
 						rgba(0,0,123,0.4)
@@ -254,22 +254,14 @@
 										aria-describedby="nama_lengkapHelp" value="${data.data.name}" readonly>
 									<label for="nama_lengkap">Name</label>
 								</div>
-								<div class="form-floating mt-4">
-									<input type="text" class="form-control text-center" id="phone" placeholder="John Doe"
-										aria-describedby="phoneHelp" value="${data.data.phone}" readonly>
-									<label for="phone">Phone</label>
-								</div>
+						
 							</div>
 							<div class="col-12">
-								<div class="form-floating mt-4">
-									<input type="text" class="form-control text-center" id="email" placeholder="John Doe"
-										aria-describedby="emailHelp" value="${data.data.email}" readonly>
-									<label for="email">Email</label>
-								</div>
+							
 								<div class="form-floating mt-4">
 									<input type="text" class="form-control text-center" id="category" placeholder="John Doe"
 										aria-describedby="categoryHelp" value="${data.data.category_name}" readonly>
-									<label for="category">Area Kursi</label>
+									<label for="category">Category</label>
 								</div>
 							</div>
 						</div>
