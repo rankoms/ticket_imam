@@ -47,7 +47,7 @@ class HomeController extends Controller
                 $barcode->save();
                 return ResponseFormatter::success($barcode, 'Ticket is successfully scanned!');
             } else {
-                return ResponseFormatter::success($barcode, 'Ticket is successfully scanned!');
+                return ResponseFormatter::success($barcode, 'Ticket has been scanned');
             }
         }
     }

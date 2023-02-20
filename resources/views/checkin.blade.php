@@ -237,7 +237,7 @@
 				title: data.meta.message,
 				showCloseButton: false,
 				showConfirmButton: false,
-				icon: data.meta.message == 'Ticket successfully scanned' ? 'success' : 'warning',
+				icon: data.meta.message == 'Ticket is successfully scanned!' ? 'success' : 'warning',
 				timer: 3000,
 				background: 'rgba(255,255,255,2)',
 				backdrop: `
