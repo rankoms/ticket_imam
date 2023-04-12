@@ -16,6 +16,15 @@
 
 				<div class="row">
 
+					<div class="col-sm-12">
+						<select name="event" id="event" class="form-control mb-4">
+							<option value="">Pilih Event</option>
+							@foreach ($event as $key => $value)
+								<option value="{{ $value->event_name }}" {{ $request->event == $value->event_name ? 'selected' : '' }}>
+									{{ $value->event_name }}</option>
+							@endforeach
+						</select>
+					</div>
 					<div class="col-lg-4 col-4">
 						<div class="small-box bg-info">
 							<div class="inner">
@@ -86,6 +95,12 @@
 		<script src="{{ url('js/jquery.dataTables.min.js') }}"></script>
 		<script>
 			$(document).ready(function() {
+				$('#event').on('change', function() {
+
+					url = "{{ route('dashboard_ticket') }}?event=" + $(this).val();
+					// url = url.replace(':event', $(this).val());
+					window.location.href = url;
+				})
 				$('#example').DataTable({
 					order: [
 						[0, 'desc']

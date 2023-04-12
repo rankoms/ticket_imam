@@ -27,6 +27,14 @@
 					</a>
 				</li>
 				<li class="nav-item">
+					<a href="{{ route('checkin_v2') }}" class="nav-link {{ areActiveRoutes(['checkin_v2']) }}">
+						<i class="nav-icon fas fa-edit"></i>
+						<p>
+							Checkin V2
+						</p>
+					</a>
+				</li>
+				<li class="nav-item">
 					<a href="{{ route('checkout') }}" class="nav-link {{ areActiveRoutes(['checkout']) }}">
 						<i class="nav-icon fas fa-edit"></i>
 						<p>

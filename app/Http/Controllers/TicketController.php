@@ -16,7 +16,13 @@ class TicketController extends Controller
 
     public function dashboard_ticket(Request $request)
     {
-        $ticket = Barcode::orderBy('category_name', 'asc')->get();
+        $ticket = Barcode::orderBy('category_name', 'asc');
+        if ($request->event) {
+            $ticket = $ticket->where('event_name', $request->event);
+        }
+
+        $event = Barcode::groupBy('event_name')->select('event_name')->get();
+        $ticket = $ticket->get();
 
         $jumlah_pending = 0;
         $jumlah_checkin = 0;
@@ -36,6 +42,6 @@ class TicketController extends Controller
                 isset($kategory_aset[$value->category_name]['checkout']) ? $kategory_aset[$value->category_name]['checkout']++ : $kategory_aset[$value->category_name]['checkout'] = 1;
             endif;
         endforeach;
-        return view('admin.dashboard_ticket', compact('kategory_aset', 'jumlah_pending', 'jumlah_checkin', 'jumlah_checkout', 'ticket'));
+        return view('admin.dashboard_ticket', compact('kategory_aset', 'jumlah_pending', 'jumlah_checkin', 'jumlah_checkout', 'ticket', 'request', 'event'));
     }
 }

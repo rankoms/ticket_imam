@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseFormatter;
+use App\Models\Barcode;
 use App\Models\Event;
 use App\Models\RedeemHistory;
 use App\Models\RedeemVoucher;
@@ -21,59 +22,22 @@ class RedeemVoucherController extends Controller
     {
         return view('checkin');
     }
+    public function checkin_v2()
+    {
+        return view('checkin_v2');
+    }
     public function checkout()
     {
         return view('checkout');
     }
 
-    public function summary_redeem()
-    {
-        $redeem_voucher = RedeemVoucher::orderBy('kategory', 'asc')->get();
-        $jumlah_belum = 0;
-        $jumlah_sudah = 0;
-        foreach ($redeem_voucher as $key => $value) :
-            if ($value->status == 0) :
-                $jumlah_belum++;
-                isset($kategory_aset[$value->kategory]['belum']) ? $kategory_aset[$value->kategory]['belum']++ : $kategory_aset[$value->kategory]['belum'] = 1;
-            else :
-                $jumlah_sudah++;
-                isset($kategory_aset[$value->kategory]['sudah']) ? $kategory_aset[$value->kategory]['sudah']++ : $kategory_aset[$value->kategory]['sudah'] = 1;
-            endif;
-        endforeach;
-        return view('summary_redeem', compact('kategory_aset', 'jumlah_belum', 'jumlah_sudah', 'redeem_voucher'));
-    }
-
-    public function dashboard(Request $request)
-    {
-        $redeem_voucher = RedeemVoucher::orderBy('kategory', 'asc')->get();
-
-        $jumlah_belum = 0;
-        $jumlah_sudah = 0;
-        $kategory_aset = [];
-        // $kategory_aset['sudah'] = [];
-        // $kategory_aset['belum'] = [];
-        foreach ($redeem_voucher as $key => $value) :
-            if ($value->status == 0) :
-                $jumlah_belum++;
-                isset($kategory_aset[$value->kategory]['belum']) ? $kategory_aset[$value->kategory]['belum']++ : $kategory_aset[$value->kategory]['belum'] = 1;
-            else :
-                $jumlah_sudah++;
-                isset($kategory_aset[$value->kategory]['sudah']) ? $kategory_aset[$value->kategory]['sudah']++ : $kategory_aset[$value->kategory]['sudah'] = 1;
-            endif;
-        endforeach;
-        return view('admin.dashboard', compact('kategory_aset', 'jumlah_belum', 'jumlah_sudah', 'redeem_voucher'));
-    }
 
     public function cek_redeem_voucher(Request $request)
     {
         $voucher = $request->voucher;
 
-        $redeem_voucher = RedeemVoucher::where('kode', $voucher)->first();
+        $redeem_voucher = Barcode::where('barcode', $voucher)->first();
 
-        $redeem_history = new RedeemHistory();
-        $redeem_history->redeem_by = Auth::user()->id;
-        $redeem_history->kode = $redeem_voucher ? $redeem_voucher->kode : $voucher;
-        $redeem_history->save();
         if (!$redeem_voucher) {
             return ResponseFormatter::error(null, '');
         } else {
@@ -91,11 +55,11 @@ class RedeemVoucherController extends Controller
             'id' => ['required', 'numeric']
         ]);
 
-        $redeem_voucher = RedeemVoucher::find($request->id);
-        $redeem_voucher->redeem_by = Auth::user()->id;
-        $redeem_voucher->redeem_date = date('Y-m-d H:i:s');
-        $redeem_voucher->status = 1;
-        $redeem_voucher->save();
+        $barcode = Barcode::find($request->id);
+        $barcode->barcode_scan_status = 1019;
+        $barcode->user_id_checkin = Auth::user()->name;
+        $barcode->barcode_scan_date = date('Y-m-d H:i:s');
+        $barcode->save();
 
         return ResponseFormatter::success(null, 'Redeem E-Ticket Berhasil');
     }
